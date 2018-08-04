@@ -1,4 +1,6 @@
-﻿@{
+﻿@using RestoGo.API
+@model GoogleMatrixData
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -17,6 +19,11 @@
             Here will be controls for the restaurant API
         </p>
     </div>
-   
+
 
 </div>
+
+@{ String[] orig = (Model.destination_addresses[0]).Split(','); }
+City = @orig[0]<br />
+Province = @orig[1].Substring(1, 2)<br/>
+
