@@ -25,5 +25,9 @@
 
 @{ String[] orig = (Model.destination_addresses[0]).Split(','); }
 City = @orig[0]<br />
-Province = @orig[1].Substring(1, 2)<br/>
+Province = @orig[1].Substring(1, 2)<br />
 
+@{double[] coord = (double[])ViewBag.Coord;  }
+    User coordinates <br />
+lat = @ViewBag.Coord[0]<br />
+lng = @ViewBag.Coord[1]<br />
