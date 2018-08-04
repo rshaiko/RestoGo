@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "RestoGo - Custom search";
+}
+
+<h2>Search</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>1 - Select the parameters you need</h2>
+
+
+        <p>
+            Here will be controls for the restaurant API
+        </p>
+    </div>
+
+
+</div>
+
+@*@{ String[] orig = (Model.destination_addresses[0]).Split(','); }
+City = @orig[0]<br />
+Province = @orig[1].Substring(1, 2)<br />
+
+@{double[] coord = (double[])ViewBag.Coord; }
+    User coordinates <br />
+lat = @ViewBag.Coord[0]<br />
+lng = @ViewBag.Coord[1]<br />*@

@@ -17,19 +17,85 @@ namespace RestoGo.Controllers
         public ActionResult Index()
         {
 
+            ViewBag.Message = "Your application description page.";
 
-            double[] userCoordinates = {0, 0};
+            //private static readonly HttpClient client = new HttpClient();
 
-            if (User.Identity.IsAuthenticated) {
+            // GET: Restaurant
+            
+                string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.7&lon=-73&apikey=" + "4d72030018edd126975c251c29c50f70";
+                List<Restaurant> list = new List<Restaurant>();
+                try
+                {
+                    string json = Api.getJson(url);
+                    dynamic obj = JsonConvert.DeserializeObject(json);
+
+                    dynamic obj2 = obj.nearby_restaurants;
+                    foreach (var item in obj2)
+                    {
+                        Restaurant rest = new Restaurant();
+                        if (item.restaurant != null)
+                        {
+                            rest.Name = item.restaurant.name;
+                            rest.Address = item.restaurant.location.address;
+                            rest.City = item.restaurant.location.city;
+                            rest.ZipCode = item.restaurant.location.zipcode;
+                            rest.URL = item.restaurant.url;
+                            rest.Rating = item.restaurant.user_rating.aggregate_rating;
+
+                            list.Add(rest);
+                        }
+
+                    }
+                    Console.WriteLine("OK");
+                    return View(list);
+
+                }
+
+                catch (Exception)
+                {
+                    //no distances found
+                    Console.WriteLine("Error");
+                    return View();
+                }
+            
+
+            
+            
+            
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Search()
+        {
+            ViewBag.Message = "RestoGo - Advanced search";
+
+            double[] userCoordinates = { 0, 0 };
+
+            if (User.Identity.IsAuthenticated)
+            {
                 // get current user coordinates
                 string userName = System.Web.HttpContext.Current.User.Identity.Name;
                 var curUser = db.Users.Where(a => a.Email == userName).SingleOrDefault();
                 url = "http://maps.google.com/maps/api/geocode/json?address=" + curUser.Zip;
                 try
                 {
-                json = Api.getJson(url);
-                GoogleCoordinates coord = JsonConvert.DeserializeObject<GoogleCoordinates>(json);
-                if (coord.status != "OK") throw new Exception();
+                    json = Api.getJson(url);
+                    GoogleCoordinates coord = JsonConvert.DeserializeObject<GoogleCoordinates>(json);
+                    if (coord.status != "OK") throw new Exception();
                     userCoordinates[0] = coord.results[0].geometry.location.lat;
                     userCoordinates[1] = coord.results[0].geometry.location.lng;
 
@@ -64,7 +130,7 @@ namespace RestoGo.Controllers
                 //tbGoogleTimeTo.Content = goo.rows[0].elements[0].duration.text.ToString();
                 //int.TryParse(goo.rows[0].elements[0].distance.value + "", out meterGoo[0]);
                 //int.TryParse(goo.rows[0].elements[0].duration.value + "", out secGoo[0]);
-                
+
                 Console.WriteLine("distance OK");
                 return View(goo);
 
@@ -76,21 +142,6 @@ namespace RestoGo.Controllers
                 Console.WriteLine("No distance!!!");
                 return View();
             }
-            
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }
