@@ -17,13 +17,13 @@ namespace RestoGo.Controllers
         public ActionResult Index()
         {
 
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "RestoGo - Find your best match resto";
 
             //private static readonly HttpClient client = new HttpClient();
 
             // GET: Restaurant
             
-                string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.7&lon=-73&apikey=" + "4d72030018edd126975c251c29c50f70";
+                string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.7058381&lon=-73.47426&apikey=" + "4d72030018edd126975c251c29c50f70";
                 List<Restaurant> list = new List<Restaurant>();
                 try
                 {
