@@ -18,7 +18,8 @@ namespace RestoGo.Models
         public double AggregateRating { get; set; }
         public string Votes { get; set; }
         public string Color { get; set; }
-
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         //from Distance API
         public string TimeToGetTo { get; set; }
         public string Distance { get; set; }

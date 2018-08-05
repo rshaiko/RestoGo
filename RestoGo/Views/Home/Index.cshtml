@@ -4,7 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron" style="margin-top:40px" >
+<div class="jumbotron" style="margin-top:40px">
     <h1>Welcome to RestoGo!</h1>
     <p class="lead">We are working to help you to find a resto that best match your needs!</p>
     <p><a href="~/Home/About" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -31,11 +31,11 @@
                                             <b>
                                                 @if (a.Name.Length <= 20)
                                                 {
-                                                        @a.Name
+                                                    @a.Name
                                                 }
                                                 else
                                                 {
-                                                        @a.Name.Substring(0, 20)<span>...</span>
+                                                    @a.Name.Substring(0, 20)<span>...</span>
                                                 }
                                             </b>
                                         </p>
@@ -90,25 +90,26 @@
 
                                         </p>
                                     </div>
-                                        <p>Average cost per two <b>$@a.AverageCost</b></p>
-                                        <p style="font-size:large; width:320px; height:50px">@a.Address</p>
-                                    </div>
+                                    <p>Average cost per two <b>$@a.AverageCost</b></p>
+                                    <p style="font-size:large; width:320px; height:50px">@a.Address</p>
+                                </div>
                             </a>
-                                <p style="text-align:center">
-                                    <i class="fas fa-car"></i> @a.Distance &nbsp;&nbsp;&nbsp;<i class="far fa-clock" aria-hidden="true"></i> @a.TimeToGetTo
-                                    @if (User.Identity.IsAuthenticated)
-                                      {
-                                        <div class="form-group" style="text-align:center">
-                                            @Html.ActionLink("Get direction", "Index", "Direction", new { zip = a.ZipCode }, new { @class = "btn btn-primary" })
-                                        </div>
-                                    }
-                                    else {
-                                        <div class="form-group" style="text-align:center">
-                                             @Html.ActionLink("Login to get direction", "Login", "Account", null, new { @class = "btn btn-info" })
-                                        </div>
-                                    }
+                            <p style="text-align:center">
+                                <i class="fas fa-car"></i> @a.Distance &nbsp;&nbsp;&nbsp;<i class="far fa-clock" aria-hidden="true"></i> @a.TimeToGetTo
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="form-group" style="text-align:center">
+                                        @Html.ActionLink("Get direction", "Index", "Direction", new { zip = a.ZipCode }, new { @class = "btn btn-primary" })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group" style="text-align:center">
+                                        @Html.ActionLink("Login to get direction", "Login", "Account", null, new { @class = "btn btn-info" })
+                                    </div>
+                                }
 
-                                </p>
+                            </p>
                         </div>
                     }
                     i++;
@@ -118,7 +119,26 @@
         </div>
     </div>
 </div>
+@{var url = "https://dev.virtualearth.net/REST/v1/Imagery/Map/road?pp=";}
+@{var dummy = 1;}
 
+@foreach (var item in Model)
+{
+    if (dummy != Model.Count())
+    {
+        url += @item.Latitude + "," + @item.Longitude + ";;&pp=";
+    }
+    else
+    {
+        url += @item.Latitude + "," + @item.Longitude + ";;&";
+    }
+    dummy++;
+}@{url = url + "key=AjDvdPcUrSfJfrA73THbzgQimIgKmNp1u4Q1GAq1TQKcEEVsGU_zn0BaJllRMkhm";}
+<div>
+    <img class="img-responsive center-block" height="620" width="620" alt="img"
+         src=@url>
+
+</div>
 <table class="table">
     <tr>
         <th>
@@ -148,7 +168,7 @@
     </tr>
 
     @foreach (var item in Model)
-                                                {
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

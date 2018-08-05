@@ -47,6 +47,8 @@ namespace RestoGo.Controllers
                             rest.Color = item.restaurant.user_rating.rating_color;
                             rest.AggregateRating = item.restaurant.user_rating.aggregate_rating;
                             rest.Votes = item.restaurant.user_rating.votes;
+                            rest.Latitude = item.restaurant.location.latitude;
+                            rest.Longitude = item.restaurant.location.longitude;
                             list.Add(rest);
                         }
 
