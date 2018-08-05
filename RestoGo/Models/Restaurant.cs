@@ -12,7 +12,9 @@ namespace RestoGo.Models
         public string City { get; set; }
         public string ZipCode { get; set; }
         public string URL { get; set; }
-        public double Rating { get; set; }
+        public string Rating { get; set; }
+        public string Ciusine { get; set; }
+        public double AverageCost { get; set; }
 
 
     }

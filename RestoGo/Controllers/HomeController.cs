@@ -41,9 +41,11 @@ namespace RestoGo.Controllers
                             rest.City = item.restaurant.location.city;
                             rest.ZipCode = item.restaurant.location.zipcode;
                             rest.URL = item.restaurant.url;
-                            rest.Rating = item.restaurant.user_rating.aggregate_rating;
+                            rest.Rating = item.restaurant.user_rating.rating_text;
+                            rest.Ciusine = item.restaurant.cuisines;
+                            rest.AverageCost = item.restaurant.average_cost_for_two;
 
-                            list.Add(rest);
+                        list.Add(rest);
                         }
 
                     }
@@ -54,7 +56,7 @@ namespace RestoGo.Controllers
 
                 catch (Exception)
                 {
-                    //no distances found
+                    
                     Console.WriteLine("Error");
                     return View();
                 }
