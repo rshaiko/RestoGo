@@ -65,27 +65,27 @@
                                             else if (a.AggregateRating > 3.5)
                                             {
                                                 //4stars
-                                                <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                                <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating)  *</span> @a.Votes <span> votes</span>
                                             }
                                             else if (a.AggregateRating > 2.5)
                                             {
                                                 //3stars
-                                                <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                                <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating)  *</span> @a.Votes <span> votes</span>
                                             }
                                             else if (a.AggregateRating > 1.5)
                                             {
                                                 //2stars
-                                                <span><i class="far fa-star"></i><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                                <span><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating)  *</span> @a.Votes <span> votes</span>
                                             }
                                             else if (a.AggregateRating > 0.5)
                                             {
                                                 //1star
-                                                <span><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                                <span><i class="far fa-star"></i> * (@a.AggregateRating)   *</span> @a.Votes <span> votes</span>
                                             }
                                             else
                                             {
                                                 //no stars
-                                                <span> Not rated * </span> @a.Votes <span>votes</span>
+                                                <span> Not rated  * (@a.AggregateRating)   * </span> @a.Votes <span>votes</span>
                                             }
 
                                         </p>
@@ -104,7 +104,7 @@
                                     }
                                     else {
                                         <div class="form-group" style="text-align:center">
-                                             @Html.ActionLink("Login to get direction", "Account", "Login", null, new { @class = "btn btn-info" })
+                                             @Html.ActionLink("Login to get direction", "Login", "Account", null, new { @class = "btn btn-info" })
                                         </div>
                                     }
 
