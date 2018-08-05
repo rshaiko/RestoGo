@@ -1,18 +1,124 @@
 ﻿@using RestoGo.API
-@model IEnumerable < RestoGo.Models.Restaurant >
-    @{
+@model IEnumerable<RestoGo.Models.Restaurant>
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<div class="jumbotron" style="margin-top:40px" >
     <h1>Welcome to RestoGo!</h1>
     <p class="lead">We are working to help you to find a resto that best match your needs!</p>
     <p><a href="~/Home/Search.cshtml" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
 
-<h2>Restaurants</h2>
+<h2 style="margin-left:65px">Featured restaurants</h2>
 
+<div class="jumbotron">
+    <div style="text-align:left">
+        <div style="margin:0 auto;">
+            <div style="display:inline-block; margin:0 auto ">
+                @{int i = 0;}
+                @do
+                {
+                    foreach (var a in Model)
+                    {
+
+                        <div class="asset-item" style="width:325px;  height:360px">
+                            <a href="@a.URL" target="_blank">
+                                <div>
+                                    <div style="text-align:center">
+                                        <p style="font-size:x-large; color:darkblue;">
+                                            <b>
+                                                @if (a.Name.Length <= 20)
+                                                {
+                                                        @a.Name
+                                                }
+                                                else
+                                                {
+                                                        @a.Name.Substring(0, 20)<span>...</span>
+                                                }
+                                            </b>
+                                        </p>
+                                    </div>
+
+
+                                    <div style="text-align:center; ">
+                                        <p style="font-size:medium">
+                                            (@a.Ciusine)
+                                            @*@if (a.Ciusine.Length <= 34)
+                                                {
+                                                    @a.Ciusine
+                                                }
+                                                else
+                                                {
+                                                    @a.Ciusine.Substring(0, 34)<span>...</span>
+                                                }*@
+                                        </p>
+                                    </div>
+                                    <div style="text-align:center">
+                                        <p style="font-size:medium; color:#@a.Color">
+                                            @if (a.AggregateRating > 4.5)
+                                            {
+                                                //5 stars
+                                                <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating) * </span> @a.Votes <span> votes</span>
+                                            }
+                                            else if (a.AggregateRating > 3.5)
+                                            {
+                                                //4stars
+                                                <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                            }
+                                            else if (a.AggregateRating > 2.5)
+                                            {
+                                                //3stars
+                                                <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                            }
+                                            else if (a.AggregateRating > 1.5)
+                                            {
+                                                //2stars
+                                                <span><i class="far fa-star"></i><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                            }
+                                            else if (a.AggregateRating > 0.5)
+                                            {
+                                                //1star
+                                                <span><i class="far fa-star"></i> *</span> @a.Votes <span> votes</span>
+                                            }
+                                            else
+                                            {
+                                                //no stars
+                                                <span> Not rated * </span> @a.Votes <span>votes</span>
+                                            }
+
+                                        </p>
+                                    </div>
+                                        <p>Average cost per two <b>$@a.AverageCost</b></p>
+                                        <p style="font-size:large; width:320px; height:50px">@a.Address</p>
+                                    </div>
+                            </a>
+                                <p style="text-align:center">
+                                    <i class="fas fa-car"></i> @a.Distance &nbsp;&nbsp;&nbsp;<i class="far fa-clock" aria-hidden="true"></i> @a.TimeToGetTo
+                                    @if (User.Identity.IsAuthenticated)
+                                      {
+                                        <div class="form-group" style="text-align:center">
+                                            @Html.ActionLink("Get direction", "Index", "Direction", new { zip = a.ZipCode }, new { @class = "btn btn-primary" })
+                                        </div>
+                                    }
+                                    else {
+                                        <div class="form-group" style="text-align:center">
+
+                                            @Html.ActionLink("LogIn to get direction", "Index", "Direction", new { zip = a.ZipCode }, new { @class = "btn btn-info" })
+                                        </div>
+                                    }
+
+                                </p>
+                        </div>
+                    }
+                    i++;
+                }
+                while (i < 2);
+            </div>
+        </div>
+    </div>
+</div>
 
 <table class="table">
     <tr>
@@ -43,33 +149,33 @@
     </tr>
 
     @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            <a href="@Html.DisplayFor(modelItem => item.URL)">URL</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ciusine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AverageCost)
-        </td>
-    </tr>
+                                                {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.URL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ciusine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageCost)
+            </td>
+        </tr>
     }
 
 </table>

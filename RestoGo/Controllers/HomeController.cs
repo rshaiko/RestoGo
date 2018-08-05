@@ -44,13 +44,56 @@ namespace RestoGo.Controllers
                             rest.Rating = item.restaurant.user_rating.rating_text;
                             rest.Ciusine = item.restaurant.cuisines ;
                             rest.AverageCost = item.restaurant.average_cost_for_two;
-
-                        list.Add(rest);
+                            rest.Color = item.restaurant.user_rating.rating_color;
+                            rest.AggregateRating = item.restaurant.user_rating.aggregate_rating;
+                            rest.Votes = item.restaurant.user_rating.votes;
+                            list.Add(rest);
                         }
 
                     }
-                    Console.WriteLine("OK");
+                
+                //Adding time and distance
+                string[] arrDest = new string[list.Count];
+                for(int i = 0; i < list.Count; i++)
+                {
+                    arrDest[i] = list[i].ZipCode;
+                }
+                string destinations = String.Join("|", arrDest);
+
+                url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=H8N2K5&destinations="+destinations+"&key=" + Globals.DistanceAPIkey;
+                try
+                {
+                    json = Api.getJson(url);
+                    GoogleMatrixData goo = JsonConvert.DeserializeObject<GoogleMatrixData>(json);
+                    if(goo.status !="OK")throw new Exception();
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        if (goo.rows[0].elements[i].status != "OK")
+                        {
+                            list[i].Distance = "n/d";
+                            list[i].TimeToGetTo = "n/d";
+                        }
+                        else
+                        {
+                            list[i].Distance = goo.rows[0].elements[i].distance.text.ToString();
+                            list[i].TimeToGetTo = goo.rows[0].elements[i].duration.text.ToString();
+
+                        }
+                    }
                     return View(list);
+
+                }
+
+                catch (Exception)
+                {
+                    //no distances found
+                    Console.WriteLine("No distance!!!");
+                    return View();
+                }
+
+
+                Console.WriteLine("OK");
+                return View(list);
 
                 }
 

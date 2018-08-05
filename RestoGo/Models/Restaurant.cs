@@ -15,7 +15,12 @@ namespace RestoGo.Models
         public string Rating { get; set; }
         public string Ciusine { get; set; }
         public double AverageCost { get; set; }
+        public double AggregateRating { get; set; }
+        public string Votes { get; set; }
+        public string Color { get; set; }
 
-
+        //from Distance API
+        public string TimeToGetTo { get; set; }
+        public string Distance { get; set; }
     }
 }

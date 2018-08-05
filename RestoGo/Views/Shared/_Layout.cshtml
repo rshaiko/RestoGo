@@ -2,10 +2,39 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/images/logo3.ico" />
     <title>@ViewBag.Title - Find a resto</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .mynav li a{
+            border: 1px solid lightgray;
+            border-radius:4px;
+        }
+            .mynav li a:hover {
+                border: 1px solid gray;
+                background: lightgray;
+                border-radius: 4px;
+            }
+        .asset-item {
+            display: inline-block;
+            width: 350px;
+            text-align: center;
+            border: 1px solid lightblue;
+            background: lightgray;
+            margin: 5px 5px 20px 5px;
+            padding: 10px 2px 5px;
+        }
+
+            .asset-item:hover {
+                border: 3px solid darkblue;
+                border-radius: 5px;
+                padding: 8px 0px 3px;
+                background: lightgray;
+            }
+    </style>
 
 </head>
 <body>
@@ -17,11 +46,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("RestoGo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="~/Home/Index"><img src="~/images/logo1.png" style="height:70px;margin-right:25px" /></a>
+                @*@Html.ActionLink("RestoGo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <ul class="nav navbar-nav mynav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", null , new { @class = "mynav" })</li>
                     <li>@Html.ActionLink("Search","Index", "Search")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
