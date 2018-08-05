@@ -4,22 +4,63 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
+<br /><br />
+<h2>RestoGo - Custom search</h2>
+<br />
 
 <div>
-    <h4>GoogleMatrixData</h4>
+    <h4>Enter a nearby address or postal code</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
+    <form id="restoform" style="width:800px" method="post">
+        <table>
+            <tr>
+                <td>
+                    <div style="margin: 5px">
+                        <input style="width: 330px" class="form-control" type="text" name="addr" id="addr" placeholder="Address"><br />
+                    </div>
+                </td>
+                <td>
+                    <div style="margin: 5px">
+                        <input class="form-control" type="text" name="city" id="city" placeholder="City"><br />
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown" style="width:80px; margin:5px; position:relative; bottom:11px;">
+                        <select id="prov" name="prov" class="form-control">
+                            <option selected="selected" value="QC">QC</option>
+                            <option value="ON">ON</option>
+                            <option value="AB">AB</option>
+                            <option value="BC">BC</option>
+                            <option value="MB">MB</option>
+                            <option value="NB">NB</option>
+                            <option value="NS">NS</option>
+                            <option value="PE">PE</option>
+                            <option value="SK">SK</option>
+                            <option value="NL">NL</option>
+                            <option value="NT">NT</option>
+                            <option value="NU">NU</option>
+                            <option value="YT">YT</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-bottom: 5px; position:relative; top:3px; left:3px;  ">
+                        <input style="width: 105px" placeholder="Postal code" class="form-control" type="text" name="zip" id="zip"><br />
+                    </div>
+                </td>
+            </tr>
+        </table>
+ 
 
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
+        <div>
+            <input style="margin:5px; position:relative; bottom:10px;" type="submit" class="btn btn-primary" id="submitsearch" name="submitsearch" value="RestoSearch" >
+        </div>
 
-    </dl>
+    </form>
+
+
+
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

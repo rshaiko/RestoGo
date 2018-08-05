@@ -4,20 +4,22 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="~/images/logo3.ico" />
+    <link rel="shortcut icon" href="~/images/logo1.ico" />
     <title>@ViewBag.Title - Find a resto</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
-        .mynav li a{
+        .mynav li a {
             border: 1px solid lightgray;
-            border-radius:4px;
+            border-radius: 4px;
         }
+
             .mynav li a:hover {
                 border: 1px solid gray;
                 background: lightgray;
                 border-radius: 4px;
             }
+
         .asset-item {
             display: inline-block;
             width: 350px;
@@ -35,7 +37,17 @@
                 background: lightgray;
             }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+    <script>
+
+        $(document).ready(function () {
+       
+            $('#zip').keyup(function (e) {
+                $(this).val($(this).val().toUpperCase());
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -51,8 +63,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav mynav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", null , new { @class = "mynav" })</li>
-                    <li>@Html.ActionLink("Search","Index", "Search")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "mynav" })</li>
+                    <li>@Html.ActionLink("RestoSearch", "Index", "Search")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -72,5 +84,21 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+    <script>
+
+        $(window).load(function () {
+            var zips = [{ "mask": "a#b #b#" }];
+            $('#zip').inputmask({
+                mask: zips,
+                greedy: false,
+                definitions: {
+                    '#': { validator: "[0-9]", cardinality: 1 },
+                    'a': { validator: "[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]", cardinality: 1 },
+                    'b': { validator: "[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvwxyz]", cardinality: 1 }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
