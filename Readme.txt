@@ -8,6 +8,7 @@ In order to login one can use the following credentials:
 username: roman@restogo.com
 password: Temp@123
 
-The users who are not logged in will get the list of restaurants in downtown Montreal.
+The users  will get the list of restaurants in downtown Montreal.
+The logged-in users are able to see the direction in a pop-up window from their home to a selected restaurant.
 
-The website is hosted at restogo.ml
+The website is hosted at restogo.ml.
