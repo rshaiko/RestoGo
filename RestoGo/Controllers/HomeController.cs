@@ -30,7 +30,7 @@ namespace RestoGo.Controllers
 
             // GET: Restaurant
 
-            string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.50884&lon=-73.58781&apikey=" + "4d72030018edd126975c251c29c50f70";
+            string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.50884&lon=-73.58781&apikey=" + Globals.RestoAPIkey;
                 List<Restaurant> list = new List<Restaurant>();
                 try
                 {

@@ -145,7 +145,7 @@ namespace RestoGo.Controllers
 
             // GET: Restaurant
 
-            url = "https://developers.zomato.com/api/v2.1/geocode?lat="+ searchCoordinates[0] + "&lon="+ searchCoordinates[1] + "&apikey=" + "4d72030018edd126975c251c29c50f70";
+            url = "https://developers.zomato.com/api/v2.1/geocode?lat="+ searchCoordinates[0] + "&lon="+ searchCoordinates[1] + "&apikey=" + Globals.RestoAPIkey;
             List<Restaurant> list = new List<Restaurant>();
             try
             {
