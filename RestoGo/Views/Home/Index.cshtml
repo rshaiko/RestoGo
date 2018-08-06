@@ -142,4 +142,21 @@
         </div>
     </div>
 </div>
-
+@{var url = "https://dev.virtualearth.net/REST/v1/Imagery/Map/road?pp=";}
+@{var dummy = 1;}
+@foreach (var item in Model)
+{
+    if (dummy != Model.Count())
+    {
+        url += @item.Latitude + "," + @item.Longitude + ";;&pp=";
+    }
+    else
+    {
+        url += @item.Latitude + "," + @item.Longitude + ";;&";
+    }
+    dummy++;
+}@{url = url + "key=AjDvdPcUrSfJfrA73THbzgQimIgKmNp1u4Q1GAq1TQKcEEVsGU_zn0BaJllRMkhm";}
+<div>
+    <img class="img-responsive center-block" height="420" width="420" alt="img"
+         src=@url>
+</div>
