@@ -18,9 +18,14 @@ namespace RestoGo.Controllers
         {
 
             ViewBag.Message = "RestoGo - Find your best match resto";
-            string userName = System.Web.HttpContext.Current.User.Identity.Name;
-            var curUser = db.Users.Where(a => a.Email == userName).SingleOrDefault();
-            ViewBag.UserZip = curUser.Zip;
+
+            ViewBag.UserZip = "H2Z1A7";
+            if (User.Identity.IsAuthenticated)
+            {
+                string userName = System.Web.HttpContext.Current.User.Identity.Name;
+                var curUser = db.Users.Where(a => a.Email == userName).SingleOrDefault();
+                ViewBag.UserZip = curUser.Zip;
+            }
             //private static readonly HttpClient client = new HttpClient();
 
             // GET: Restaurant
@@ -64,7 +69,7 @@ namespace RestoGo.Controllers
                 }
                 string destinations = String.Join("|", arrDest);
 
-                url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=H8N2K5&destinations="+destinations+"&key=" + Globals.DistanceAPIkey;
+                url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=H2Z1A7&destinations=" + destinations+"&key=" + Globals.DistanceAPIkey;
                 try
                 {
                     json = Api.getJson(url);
