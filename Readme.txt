@@ -9,3 +9,5 @@ username: roman@restogo.com
 password: Temp@123
 
 The users who are not logged in will get the list of restaurants in downtown Montreal.
+
+The website is hosted at restogo.ml
