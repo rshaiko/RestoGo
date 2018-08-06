@@ -97,9 +97,9 @@
                             <p style="text-align:center">
                                 <i class="fas fa-car"></i> @a.Distance &nbsp;&nbsp;&nbsp;<i class="far fa-clock" aria-hidden="true"></i> @a.TimeToGetTo
                                 @if (User.Identity.IsAuthenticated)
-                                {
+                                { var href = "https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0=" + ViewBag.UserZip + ";64;1&wp.1=" + a.ZipCode+ ";66;2&key=AjDvdPcUrSfJfrA73THbzgQimIgKmNp1u4Q1GAq1TQKcEEVsGU_zn0BaJllRMkhm";
                                     <div class="form-group" style="text-align:center">
-                                        @Html.ActionLink("Get direction", "Index", "Direction", new { zip = a.ZipCode }, new { @class = "btn btn-primary" })
+                                        <a href=@href>Get direction</a>
                                     </div>
                                 }
                                 else

@@ -18,12 +18,14 @@ namespace RestoGo.Controllers
         {
 
             ViewBag.Message = "RestoGo - Find your best match resto";
-
+            string userName = System.Web.HttpContext.Current.User.Identity.Name;
+            var curUser = db.Users.Where(a => a.Email == userName).SingleOrDefault();
+            ViewBag.UserZip = curUser.Zip;
             //private static readonly HttpClient client = new HttpClient();
 
             // GET: Restaurant
-            
-                string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.50884&lon=-73.58781&apikey=" + "4d72030018edd126975c251c29c50f70";
+
+            string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.50884&lon=-73.58781&apikey=" + "4d72030018edd126975c251c29c50f70";
                 List<Restaurant> list = new List<Restaurant>();
                 try
                 {
