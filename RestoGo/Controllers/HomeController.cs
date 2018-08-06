@@ -30,7 +30,7 @@ namespace RestoGo.Controllers
 
             // GET: Restaurant
 
-            string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.50884&lon=-73.58781&apikey=" + Globals.RestoAPIkey;
+            string url = "https://developers.zomato.com/api/v2.1/geocode?lat=45.5042341&lon=-73.56492679999999&apikey=" + Globals.RestoAPIkey;
                 List<Restaurant> list = new List<Restaurant>();
                 try
                 {
@@ -101,9 +101,6 @@ namespace RestoGo.Controllers
                 }
 
 
-                Console.WriteLine("OK");
-                return View(list);
-
                 }
 
                 catch (Exception)
@@ -112,11 +109,7 @@ namespace RestoGo.Controllers
                     Console.WriteLine("Error");
                     return View();
                 }
-            
-
-            
-            
-            
+      
         }
 
         public ActionResult About()

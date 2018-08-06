@@ -187,7 +187,6 @@
     <Compile Include="API\API.cs" />
     <Compile Include="API\GoogleCoordinates.cs" />
     <Compile Include="API\GoogleDistance.cs" />
-    <Compile Include="API\ZomatoGeocode.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -212,7 +211,6 @@
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ZomatoGoogle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

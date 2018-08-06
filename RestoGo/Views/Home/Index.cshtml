@@ -7,7 +7,10 @@
 <div class="jumbotron" style="margin-top:40px">
     <h1>Welcome to RestoGo!</h1>
     <p class="lead">We are working to help you to find a resto that best match your needs!</p>
-    <p><a href="~/Home/About" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p>
+        <a href="~/Home/About" class="btn btn-primary btn-lg">Learn more &raquo;</a>&nbsp;&nbsp;&nbsp;
+        <a href="~/Search/Index" class="btn btn-primary btn-lg">RestoSearch &raquo;</a>
+    </p>
 </div>
 
 
@@ -45,18 +48,36 @@
                                     <div style="text-align:center; ">
                                         <p style="font-size:medium; color:darkblue;">
                                             (@a.Ciusine)
-                                            @*@if (a.Ciusine.Length <= 34)
-                                                {
-                                                    @a.Ciusine
-                                                }
-                                                else
-                                                {
-                                                    @a.Ciusine.Substring(0, 34)<span>...</span>
-                                                }*@
+
                                         </p>
                                     </div>
                                     <div style="text-align:center">
-                                        <p style="font-size:medium; color:#@a.Color">
+                                         @{ //Define color
+                                                string color = "";
+                                                if (a.AggregateRating > 4.5)
+                                                {
+                                                    color = "#035103";
+                                                }
+                                                else if (a.AggregateRating > 3.5)
+                                                {
+                                                    color = "#098609";
+                                                }
+                                                else if (a.AggregateRating > 2.5)
+                                                {
+                                                    color = "#0498A8";
+                                                }
+                                                else if (a.AggregateRating > 1.5)
+                                                {
+                                                    color = "#FF4500";
+                                                }
+                                                else
+                                                {
+                                                    color = "red";
+                                                }
+
+                                            }
+
+                                            <p style="font-size:medium; color:@color">
                                             @if (a.AggregateRating > 4.5)
                                             {
                                                 //5 stars
@@ -99,7 +120,9 @@
                                 @if (User.Identity.IsAuthenticated)
                                 { var href = "https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0=" + ViewBag.UserZip + ";64;1&wp.1=" + a.ZipCode+ ";66;2&key=AjDvdPcUrSfJfrA73THbzgQimIgKmNp1u4Q1GAq1TQKcEEVsGU_zn0BaJllRMkhm";
                                     <div class="form-group" style="text-align:center">
-                                        <a href=@href>Get direction</a>
+                                        <a class="btn btn-primary" href=@href target="popup"
+                                           onclick="window.open('@href', 'popup', 'width=360, height=360'); return false;"
+                                           >Get direction </a>
                                     </div>
                                 }
                                 else
@@ -119,82 +142,4 @@
         </div>
     </div>
 </div>
-@{var url = "https://dev.virtualearth.net/REST/v1/Imagery/Map/road?pp=";}
-@{var dummy = 1;}
 
-@foreach (var item in Model)
-{
-    if (dummy != Model.Count())
-    {
-        url += @item.Latitude + "," + @item.Longitude + ";;&pp=";
-    }
-    else
-    {
-        url += @item.Latitude + "," + @item.Longitude + ";;&";
-    }
-    dummy++;
-}@{url = url + "key=AjDvdPcUrSfJfrA73THbzgQimIgKmNp1u4Q1GAq1TQKcEEVsGU_zn0BaJllRMkhm";}
-<div>
-    <img class="img-responsive center-block" height="620" width="620" alt="img"
-         src=@url>
-
-</div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.URL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rating)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ciusine)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AverageCost)
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.URL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ciusine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AverageCost)
-            </td>
-        </tr>
-    }
-
-</table>
