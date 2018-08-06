@@ -1,8 +1,11 @@
-﻿@model RestoGo.API.GoogleMatrixData
-
+﻿@*@model RestoGo.API.GoogleMatrixData*@
+@using RestoGo.API
+@model IEnumerable<RestoGo.Models.Restaurant>
+@{ string[] formData = ViewBag.FormData;}
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 <br /><br />
 <h2>RestoGo - Custom search</h2>
@@ -16,12 +19,12 @@
             <tr>
                 <td>
                     <div style="margin: 5px">
-                        <input style="width: 330px" class="form-control" type="text" name="addr" id="addr" placeholder="Address"><br />
+                        <input style="width: 330px" class="form-control" type="text" name="addr" id="addr" placeholder="Address" value="@formData[0]"><br />
                     </div>
                 </td>
                 <td>
                     <div style="margin: 5px">
-                        <input class="form-control" type="text" name="city" id="city" placeholder="City"><br />
+                        <input class="form-control" type="text" name="city" id="city" placeholder="City" value="@formData[1]"><br />
                     </div>
                 </td>
                 <td>
@@ -45,24 +48,156 @@
                 </td>
                 <td>
                     <div style="margin-bottom: 5px; position:relative; top:3px; left:3px;  ">
-                        <input style="width: 105px" placeholder="Postal code" class="form-control" type="text" name="zip" id="zip"><br />
+                        <input style="width: 105px" placeholder="Postal code" class="form-control" type="text" name="zip" id="zip" value="@formData[2]"><br />
                     </div>
                 </td>
             </tr>
         </table>
- 
+
 
         <div>
-            <input style="margin:5px; position:relative; bottom:10px;" type="submit" class="btn btn-primary" id="submitsearch" name="submitsearch" value="RestoSearch" >
+            <input style="margin:5px; position:relative; bottom:10px;" type="submit" class="btn btn-primary" id="submitsearch" name="submitsearch" value="RestoSearch">
         </div>
 
     </form>
-
-
-
-
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@if(ViewBag.SearchError !=""){
+<h4 class="bg-danger">@ViewBag.Error</h4>
+}
+<span></span>
+@if (Model != null)
+{
+    <h4>Restaurants nearby: @ViewBag.FormattedAddress</h4>
+    <div class="jumbotron">
+        <div style="text-align:left">
+            <div style="margin:0 auto;">
+                <div style="display:inline-block; margin:0 auto ">
+                    @{int i = 0;}
+                    @do
+                    {
+                        foreach (var a in Model)
+                        {
+
+                            <div class="asset-item" style="width:325px;  height:360px">
+                                <a href="@a.URL" target="_blank">
+                                    <div>
+                                        <div style="text-align:center">
+                                            <p style="font-size:x-large; color:darkblue;">
+                                                <b>
+                                                    @if (a.Name.Length <= 20)
+                                                    {
+                                                        @a.Name
+                                                    }
+                                                    else
+                                                    {
+                                                        @a.Name.Substring(0, 20)<span>...</span>
+                                                    }
+                                                </b>
+                                            </p>
+                                        </div>
+
+
+                                        <div style="text-align:center; ">
+                                            <p style="font-size:medium; color:darkblue;">
+                                                (@a.Ciusine)
+                                                @*@if (a.Ciusine.Length <= 34)
+                                                    {
+                                                        @a.Ciusine
+                                                    }
+                                                    else
+                                                    {
+                                                        @a.Ciusine.Substring(0, 34)<span>...</span>
+                                                    }*@
+                                            </p>
+                                        </div>
+                                        <div style="text-align:center">
+                                            @{ //Define color
+                                                string color = "";
+                                                if (a.AggregateRating > 4.5)
+                                                {
+                                                    color = "#035103";
+                                                }
+                                                else if (a.AggregateRating > 3.5)
+                                                {
+                                                    color = "#098609";
+                                                }
+                                                else if (a.AggregateRating > 2.5)
+                                                {
+                                                    color = "#0498A8";
+                                                }
+                                                else if (a.AggregateRating > 1.5)
+                                                {
+                                                    color = "#FF4500";
+                                                }
+                                                else
+                                                {
+                                                    color = "red";
+                                                }
+
+                                            }
+
+                                            <p style="font-size:medium; color:@color">
+                                                @if (a.AggregateRating > 4.5)
+                                                {
+                                                    //5 stars
+                                                    <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating) * </span> @a.Votes <span> votes</span>
+                                                }
+                                                else if (a.AggregateRating > 3.5)
+                                                {
+                                                    //4stars
+                                                    <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating)  *</span> @a.Votes <span> votes</span>
+                                                }
+                                                else if (a.AggregateRating > 2.5)
+                                                {
+                                                    //3stars
+                                                    <span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating)  *</span> @a.Votes <span> votes</span>
+                                                }
+                                                else if (a.AggregateRating > 1.5)
+                                                {
+                                                    //2stars
+                                                    <span><i class="far fa-star"></i><i class="far fa-star"></i> * (@a.AggregateRating)  *</span> @a.Votes <span> votes</span>
+                                                }
+                                                else if (a.AggregateRating > 0.5)
+                                                {
+                                                    //1star
+                                                    <span><i class="far fa-star"></i> * (@a.AggregateRating)   *</span> @a.Votes <span> votes</span>
+                                                }
+                                                else
+                                                {
+                                                    //no stars
+                                                    <span> Not rated  * (@a.AggregateRating)   * </span> @a.Votes <span>votes</span>
+                                                }
+
+                                            </p>
+                                        </div>
+                                        <p>Average cost per two <b>$@a.AverageCost</b></p>
+                                        <p style="font-size:large; width:320px; height:50px">@a.Address</p>
+                                    </div>
+                                </a>
+                                <p style="text-align:center; " >
+                                    <i class="fas fa-car"></i> @a.Distance &nbsp;&nbsp;&nbsp;<i class="far fa-clock" aria-hidden="true"></i> @a.TimeToGetTo
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="form-group" style="text-align:center">
+                                            @Html.ActionLink("Get direction", "Index", "Direction", new { zip = a.ZipCode }, new { @class = "btn btn-primary" })
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group" style="text-align:center">
+                                            @Html.ActionLink("Login to get direction", "Login", "Account", null, new { @class = "btn btn-info" })
+                                        </div>
+                                    }
+
+                                </p>
+                            </div>
+                        }
+                        i++;
+                    }
+                    while (i < 2);
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
